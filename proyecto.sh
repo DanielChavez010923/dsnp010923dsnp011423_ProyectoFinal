@@ -132,7 +132,7 @@ do
         #fin de acumular las ventas por cliente
         
         # Calcular ingreso por categoría
-    
+
 
 done < ventas.csv
 
@@ -211,3 +211,4 @@ imprimir_ventas_mes > Reporte_ventas_mensual.txt
 top10autos > top10.txt
 ingreso_por_departamento > Reporte_ingreso_por_departamento.txt
 ingreso_por_categoria > Reporte_ingreso_por_categoria.txt
+# cambio
