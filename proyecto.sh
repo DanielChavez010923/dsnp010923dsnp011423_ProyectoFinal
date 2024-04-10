@@ -14,7 +14,12 @@ Octubre=0
 Noviembre=0
 Diciembre=0
 
+
 # top 10 de productos mas vendido
+
+
+
+
 
 # Definir función para imprimir las ventas por mes
 imprimir_ventas_mes() 
@@ -34,6 +39,11 @@ echo -e "El total de ingresos para el mes de Noviembre son: $Noviembre"
 echo -e "El total de ingresos para el mes de Diciembre son: $Diciembre"
 
 }
+
+
+
+
+
 
 # Leer el archivo CSV y procesar los datos
 while IFS=";" read -r Brand Model Description year month chasis vin transmission cilindraje traccion combustion departamento municipio precio cliente categoria
@@ -89,60 +99,81 @@ do
         fi
         # fin del calculo de ingreso por mes        
 
-done < /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv
 
 
-imprimir_ventas_mes > /workspaces/dsnp010923dsnp011423_ProyectoFinal/Reporte_ventas_mensual.txt
+        # acumular las ventas por cliente
+        if [ "$cliente" = "Continental Motors" ]; then
+            clientecontinental=$(echo "$precio $clientecontinental" | awk '{result = $1 + $2; printf "%.2f\n", result}')
+        fi
 
-grep -c "FIAT 500X SPORT CROSS 1.3 150CV DCT" ventas.csv > top10.txt
+        if [ "$cliente" = "Audi El Salvador" ]; then
+            audisalvador=$(echo "$precio $audisalvador" | awk '{result = $1 + $2; printf "%.2f\n", result}')
+        fi
 
-auto1=$(grep -c "FIAT 500X SPORT CROSS 1.3 150CV DCT" /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv)
-auto2=$(grep -c "Alfa Romeo Giulietta 1.6 Multijet 120CV" /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv)
-auto3=$(grep -c "Audi A4 Allroad Quattro 40 TDI Quattro-Ultra S Tronic" /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv)
-auto4=$(grep -c "Audi Q5 Sportback 45 TFSI Quattro-Ultra" /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv)
-auto5=$(grep -c "Aston Martin DBX V8 550CV" /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv)
-auto6=$(grep -c "BMW IX3 Inspiring" /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv)
-auto7=$(grep -c "BMW I3 I3" /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv)
-auto8=$(grep -c "Chevrolet Corvette Stingray 2019 6.2L V8 VVT" /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv)
-auto9=$(grep -c "Chevrolet Aveo S 1.2L" /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv)
-auto10=$(grep -c "Ford EcoSport 1.0 EcoBoost 140CV" /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv)
-auto11=$(grep -c "Ford Fiesta 1.2 Eco 100CV" /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv)
-auto12=$(grep -c "Ford Focus 1.0T EcoBoost 125 CV Aut. 6" /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv)
-auto13=$(grep -c "Honda Civic Type R 329 CV" /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv)
-auto14=$(grep -c "Honda E:HEV 1.5 I-MMD" /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv)
-auto15=$(grep -c "Hyundai I20 2020 1.0 T-GDi 100 CV" /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv)
-auto16=$(grep -c "Hyundai Tucson 1.6 CRDi 48V 136 CV" /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv)
-auto17=$(grep -c "KIA Sportage 1.6 PHEV 265 CV 4X4 Auto." /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv)
-auto18=$(grep -c "KIA Rio 1.0 T-GDi MHEV 120 CV" /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv)
-#el numero 19 es el toyota corolla
-auto19=$(grep -c "Toyota Sedan 140H" /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv)
-auto20=$(grep -c "Toyota RAV4 220h 4x4" /workspaces/dsnp010923dsnp011423_ProyectoFinal/ventas.csv)
-# Función para imprimir el numero de autos por modelo
-auto_modelo()
+        if [ "$cliente" = "Importadora Salvadorena" ]; then
+            imporsalvador=$(echo "$precio $imporsalvador" | awk '{result = $1 + $2; printf "%.2f\n", result}')
+        fi
+
+        if [ "$cliente" = "Excel" ]; then
+            excel=$(echo "$precio $excel" | awk '{result = $1 + $2; printf "%.2f\n", result}')
+        fi
+        
+        if [ "$cliente" = "Grupo Q" ]; then
+            GrupoQ=$(echo "$precio $GrupoQ" | awk '{result = $1 + $2; printf "%.2f\n", result}')
+        fi
+
+        if [ "$cliente" = "Grupo Geely" ]; then
+            GrupoGeely=$(echo "$precio $GrupoGeely" | awk '{result = $1 + $2; printf "%.2f\n", result}')
+        fi
+        if [ "$cliente" = "Didea" ]; then
+            Didea=$(echo "$precio $Didea" | awk '{result = $1 + $2; printf "%.2f\n", result}')
+        fi
+
+        #fin de acumular las ventas por cliente
+        
+        # Calcular ingreso por categoría
+    
+
+done < ventas.csv
+
+#Funcion para imprimir las ventas por cliente
+
+ventas_por_cliente()
 {
-echo "El numero de FIAT 500X es: $auto1"    
-echo "El numero de Alfa Romeo Giulietta es: $auto2"
-echo "El numero de Audi A4 es: $auto3"
-echo "El numero de Audi Q5 es: $auto4"
-echo "El numero de BMW IX3 es: $auto5"
-echo "El numero de BMW I3 es: $auto6"
-echo "El numero de Chevrolet Corvette es: $auto7"
-echo "El numero de Chevrolet Aveo es: $auto8"
-echo "El numero de Ford EcoSport es: $auto9"
-echo "El numero de Ford Fiesta es: $auto10"
-echo "El numero de Ford Focus es: $auto11"
-echo "El numero de Honda Civic es: $auto12"
-echo "El numero de Honda E:HEV es: $auto13"
-echo "El numero de Hyundai I20 es: $auto14"
-echo "El numero de Hyundai Tucson es: $auto15"
-echo "El numero de Kia Sportage es: $auto16"
-echo "El numero de Kia Rio es: $auto17"
-echo "El numero de Toyota Sedan es: $auto18"
-echo "El numero de Toyota Corolla es: $auto19"
-echo "El numero de toyota RAV4 es: $auto20"
-} 
-auto_modelo > /workspaces/dsnp010923dsnp011423_ProyectoFinal/auto_modelo.txt
+echo -e "El ingreso total del cliente Continental Motors es de: $clientecontinental"
+echo -e "El ingreso total del cliente Audi el salvador es de: $audisalvador"
+echo -e "El ingreso total del cliente importadora Salvadoraña es: $imporsalvador"
+echo -e "El ingreso total del cliente Grupo Q es : $GrupoQ"
+echo -e "El ingreso total del cliente Grupo Geely es : $GrupoGeely"
+echo -e "El total de ventas del cliente Excel es : $excel"
+echo -e "El total de ventas del cliente Didea es : $Didea"
+}
 
+#Funcion para el top 10
+
+top10autos()
+{
+auto1=$(grep -c "FIAT 500X SPORT CROSS 1.3 150CV DCT" ventas.csv)
+auto2=$(grep -c "Alfa Romeo Giulietta 1.6 Multijet 120CV" ventas.csv)
+auto3=$(grep -c "Audi A4 Allroad Quattro 40 TDI Quattro-Ultra S Tronic" ventas.csv)
+auto4=$(grep -c "Audi Q5 Sportback 45 TFSI Quattro-Ultra" ventas.csv)
+auto5=$(grep -c "Aston Martin DBX V8 550CV" ventas.csv)
+auto6=$(grep -c "BMW IX3 Inspiring" ventas.csv)
+auto7=$(grep -c "BMW I3 I3" ventas.csv)
+auto8=$(grep -c "Chevrolet Corvette Stingray 2019 6.2L V8 VVT" ventas.csv)
+auto9=$(grep -c "Chevrolet Aveo S 1.2L" ventas.csv)
+auto10=$(grep -c "Ford EcoSport 1.0 EcoBoost 140CV" ventas.csv)
+auto11=$(grep -c "Ford Fiesta 1.2 Eco 100CV" ventas.csv)
+auto12=$(grep -c "Ford Focus 1.0T EcoBoost 125 CV Aut. 6" ventas.csv)
+auto13=$(grep -c "Honda Civic Type R 329 CV" ventas.csv)
+auto14=$(grep -c "Honda E:HEV 1.5 I-MMD" ventas.csv)
+auto15=$(grep -c "Hyundai I20 2020 1.0 T-GDi 100 CV" ventas.csv)
+auto16=$(grep -c "Hyundai Tucson 1.6 CRDi 48V 136 CV" ventas.csv)
+auto17=$(grep -c "KIA Sportage 1.6 PHEV 265 CV 4X4 Auto." ventas.csv)
+auto18=$(grep -c "KIA Rio 1.0 T-GDi MHEV 120 CV" ventas.csv)
+#el numero 19 es el toyota corolla
+auto19=$(grep -c "Toyota Sedan 140H" ventas.csv)
+auto20=$(grep -c "Toyota RAV4 220h 4x4" ventas.csv)
 
 # Crear un array con los nombres de los vehículos
 nombres_autos=("FIAT 500X SPORT CROSS 1.3 150CV DCT" "Alfa Romeo Giulietta 1.6 Multijet 120CV" "Audi A4 Allroad Quattro 40 TDI Quattro-Ultra S Tronic" "Audi Q5 Sportback 45 TFSI Quattro-Ultra" "Aston Martin DBX V8 550CV" "BMW IX3 Inspiring" "BMW I3 I3" "Chevrolet Corvette Stingray 2019 6.2L V8 VVT" "Chevrolet Aveo S 1.2L" "Ford EcoSport 1.0 EcoBoost 140CV" "Ford Fiesta 1.2 Eco 100CV" "Ford Focus 1.0T EcoBoost 125 CV Aut. 6" "Honda Civic Type R 329 CV" "Honda E:HEV 1.5 I-MMD" "Hyundai I20 2020 1.0 T-GDi 100 CV" "Hyundai Tucson 1.6 CRDi 48V 136 CV" "KIA Sportage 1.6 PHEV 265 CV 4X4 Auto." "KIA Rio 1.0 T-GDi MHEV 120 CV" "Toyota Corolla " "Toyota RAV4 220h 4x4")
@@ -159,8 +190,24 @@ done
 # Ordenar el array combinado por los conteos de ventas de mayor a menor
 IFS=$'\n' sorted_combined=($(sort -t: -k2nr <<<"${combined[*]}"))
 
+#crear el archivo top10.txt
+
+echo -e "**********************************************************\n" >> top10.txt
+echo -e "El top 10 de vehículos mas vendidos es:\n" >> top10.txt
+
 # Imprimir solo el top 10 de vehículos vendidos (nombre y cantidad)
+
 for ((i=0; i<10; i++))
 do
-    echo "Auto #$((i+1)): $(echo ${sorted_combined[i]} | cut -d':' -f1)" >> /workspaces/dsnp010923dsnp011423_ProyectoFinal/top10.txt
+    echo -e "Auto #$((i+1)): $(echo ${sorted_combined[i]} | cut -d':' -f1) - Unidades vendidas: $(echo ${sorted_combined[i]} | cut -d':' -f2)" >> top10.txt
 done
+
+}
+
+
+
+ventas_por_cliente > Reporte_ventas_por_cliente.txt
+imprimir_ventas_mes > Reporte_ventas_mensual.txt
+top10autos > top10.txt
+ingreso_por_departamento > Reporte_ingreso_por_departamento.txt
+ingreso_por_categoria > Reporte_ingreso_por_categoria.txt
