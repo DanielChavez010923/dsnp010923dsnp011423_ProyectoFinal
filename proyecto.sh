@@ -14,22 +14,25 @@ Octubre=0
 Noviembre=0
 Diciembre=0
 
+
+
+
 # Definir función para imprimir las ventas por mes
 imprimir_ventas_mes() 
 {
 
-echo "El total de ingresos para el mes de Enero son: $Enero"
-echo "El total de ingresos para el mes de Febrero son: $Febrero"
-echo "El total de ingresos para el mes de Marzo son: $Marzo"
-echo "El total de ingresos para el mes de Abril son: $Abril"
-echo "El total de ingresos para el mes de Mayo son: $Mayo"
-echo "El total de ingresos para el mes de Junio son: $Junio"
-echo "El total de ingresos para el mes de Julio son: $Julio"
-echo "El total de ingresos para el mes de Agosto son: $Agosto"
-echo "El total de ingresos para el mes de Septiembre son: $Septiembre"
-echo "El total de ingresos para el mes de Octubre son: $Octubre"
-echo "El total de ingresos para el mes de Noviembre son: $Noviembre"
-echo "El total de ingresos para el mes de Diciembre son: $Diciembre"
+echo -e "El total de ingresos para el mes de Enero son: $Enero"
+echo -e "El total de ingresos para el mes de Febrero son: $Febrero"
+echo -e "El total de ingresos para el mes de Marzo son: $Marzo"
+echo -e "El total de ingresos para el mes de Abril son: $Abril"
+echo -e "El total de ingresos para el mes de Mayo son: $Mayo"
+echo -e "El total de ingresos para el mes de Junio son: $Junio"
+echo -e "El total de ingresos para el mes de Julio son: $Julio"
+echo -e "El total de ingresos para el mes de Agosto son: $Agosto"
+echo -e "El total de ingresos para el mes de Septiembre son: $Septiembre"
+echo -e "El total de ingresos para el mes de Octubre son: $Octubre"
+echo -e "El total de ingresos para el mes de Noviembre son: $Noviembre"
+echo -e "El total de ingresos para el mes de Diciembre son: $Diciembre"
 
 }
 
@@ -94,5 +97,5 @@ do
 done < ventas.csv
 
 
-imprimir_ventas_mes
+imprimir_ventas_mes > Reporte_ventas_mensual.txt
 
