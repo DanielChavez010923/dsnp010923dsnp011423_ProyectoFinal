@@ -101,10 +101,54 @@ do
 
 
 
+        # acumular las ventas por cliente
+
+        if [ "$cliente" = "Continental Motors" ]; then
+            clientecontinental=$(echo "$precio $clientecontinental" | awk '{result = $1 + $2; printf "%.2f\n", result}')
+        fi
+
+        if [ "$cliente" = "Audi El Salvador" ]; then
+            audisalvador=$(echo "$precio $audisalvador" | awk '{result = $1 + $2; printf "%.2f\n", result}')
+        fi
+
+        if [ "$cliente" = "Importadora Salvadorena" ]; then
+            imporsalvador=$(echo "$precio $imporsalvador" | awk '{result = $1 + $2; printf "%.2f\n", result}')
+        fi
+
+        if [ "$cliente" = "Excel" ]; then
+            excel=$(echo "$precio $excel" | awk '{result = $1 + $2; printf "%.2f\n", result}')
+        fi
+        
+        if [ "$cliente" = "Grupo Q" ]; then
+            GrupoQ=$(echo "$precio $GrupoQ" | awk '{result = $1 + $2; printf "%.2f\n", result}')
+        fi
+
+        if [ "$cliente" = "Grupo Geely" ]; then
+            GrupoGeely=$(echo "$precio $GrupoGeely" | awk '{result = $1 + $2; printf "%.2f\n", result}')
+        fi
+        if [ "$cliente" = "Didea" ]; then
+            Didea=$(echo "$precio $Didea" | awk '{result = $1 + $2; printf "%.2f\n", result}')
+        fi
+
+        #fin de acumular las ventas por cliente
+
+
+
+
 done < ventas.csv
 
+#Funcion para imprimir las ventas por cliente
 
-
+ventas_por_cliente()
+{
+echo -e "El ingreso total del cliente Continental Motors es de: $clientecontinental"
+echo -e "El ingreso total del cliente Audi el salvador es de: $audisalvador"
+echo -e "El ingreso total del cliente importadora Salvadoraña es: $imporsalvador"
+echo -e "El ingreso total del cliente Grupo Q es : $GrupoQ"
+echo -e "El ingreso total del cliente Grupo Geely es : $GrupoGeely"
+echo -e "El total de ventas del cliente Excel es : $excel"
+echo -e "El total de ventas del cliente Didea es : $Didea"
+}
 
 #Funcion para el top 10
 
@@ -163,5 +207,6 @@ done
 
 
 
+ventas_por_cliente > Reporte_ventas_por_cliente.txt
 imprimir_ventas_mes > Reporte_ventas_mensual.txt
 top10autos > top10.txt
