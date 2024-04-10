@@ -141,13 +141,13 @@ done < ventas.csv
 
 ventas_por_cliente()
 {
-echo -e "El ingreso total del cliente Continental Motors es de: $clientecontinental"
-echo -e "El ingreso total del cliente Audi el salvador es de: $audisalvador"
-echo -e "El ingreso total del cliente importadora Salvadoraña es: $imporsalvador"
-echo -e "El ingreso total del cliente Grupo Q es : $GrupoQ"
-echo -e "El ingreso total del cliente Grupo Geely es : $GrupoGeely"
-echo -e "El total de ventas del cliente Excel es : $excel"
-echo -e "El total de ventas del cliente Didea es : $Didea"
+echo -e "El ingreso total del cliente Continental Motors es: $ $clientecontinental"
+echo -e "El ingreso total del cliente Audi el salvador es: $ $audisalvador"
+echo -e "El ingreso total del cliente importadora Salvadoraña es: $ $imporsalvador"
+echo -e "El ingreso total del cliente Grupo Q es: $ $GrupoQ"
+echo -e "El ingreso total del cliente Grupo Geely es: $ $GrupoGeely"
+echo -e "El total de ventas del cliente Excel es: $ $excel"
+echo -e "El total de ventas del cliente Didea es: $ $Didea"
 }
 
 #Funcion para el top 10
