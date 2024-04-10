@@ -105,11 +105,11 @@ done < ventas.csv
 
 
 
-imprimir_ventas_mes > Reporte_ventas_mensual.txt
 
+#Funcion para el top 10
 
-grep -c "FIAT 500X SPORT CROSS 1.3 150CV DCT" ventas.csv > top10.txt
-
+top10autos()
+{
 auto1=$(grep -c "FIAT 500X SPORT CROSS 1.3 150CV DCT" ventas.csv)
 auto2=$(grep -c "Alfa Romeo Giulietta 1.6 Multijet 120CV" ventas.csv)
 auto3=$(grep -c "Audi A4 Allroad Quattro 40 TDI Quattro-Ultra S Tronic" ventas.csv)
@@ -132,28 +132,6 @@ auto18=$(grep -c "KIA Rio 1.0 T-GDi MHEV 120 CV" ventas.csv)
 auto19=$(grep -c "Toyota Sedan 140H" ventas.csv)
 auto20=$(grep -c "Toyota RAV4 220h 4x4" ventas.csv)
 
-echo "El numero de FIAT 500X es: $auto1"    
-echo "El numero de Alfa Romeo Giulietta es: $auto2"
-echo "El numero de Audi A4 es: $auto3"
-echo "El numero de Audi Q5 es: $auto4"
-echo "El numero de BMW IX3 es: $auto5"
-echo "El numero de BMW I3 es: $auto6"
-echo "El numero de Chevrolet Corvette es: $auto7"
-echo "El numero de Chevrolet Aveo es: $auto8"
-echo "El numero de Ford EcoSport es: $auto9"
-echo "El numero de Ford Fiesta es: $auto10"
-echo "El numero de Ford Focus es: $auto11"
-echo "El numero de Honda Civic es: $auto12"
-echo "El numero de Honda E:HEV es: $auto13"
-echo "El numero de Hyundai I20 es: $auto14"
-echo "El numero de Hyundai Tucson es: $auto15"
-echo "El numero de Kia Sportage es: $auto16"
-echo "El numero de Kia Rio es: $auto17"
-echo "El numero de Toyota Sedan es: $auto18"
-echo "El numero de Toyota Corolla es: $auto19"
-echo "El numero de toyota RAV4 es: $auto20"
-
-
 # Crear un array con los nombres de los vehículos
 nombres_autos=("FIAT 500X SPORT CROSS 1.3 150CV DCT" "Alfa Romeo Giulietta 1.6 Multijet 120CV" "Audi A4 Allroad Quattro 40 TDI Quattro-Ultra S Tronic" "Audi Q5 Sportback 45 TFSI Quattro-Ultra" "Aston Martin DBX V8 550CV" "BMW IX3 Inspiring" "BMW I3 I3" "Chevrolet Corvette Stingray 2019 6.2L V8 VVT" "Chevrolet Aveo S 1.2L" "Ford EcoSport 1.0 EcoBoost 140CV" "Ford Fiesta 1.2 Eco 100CV" "Ford Focus 1.0T EcoBoost 125 CV Aut. 6" "Honda Civic Type R 329 CV" "Honda E:HEV 1.5 I-MMD" "Hyundai I20 2020 1.0 T-GDi 100 CV" "Hyundai Tucson 1.6 CRDi 48V 136 CV" "KIA Sportage 1.6 PHEV 265 CV 4X4 Auto." "KIA Rio 1.0 T-GDi MHEV 120 CV" "Toyota Corolla " "Toyota RAV4 220h 4x4")
 
@@ -169,8 +147,21 @@ done
 # Ordenar el array combinado por los conteos de ventas de mayor a menor
 IFS=$'\n' sorted_combined=($(sort -t: -k2nr <<<"${combined[*]}"))
 
+#crear el archivo top10.txt
+
+echo -e "**********************************************************\n" >> top10.txt
+echo -e "El top 10 de vehículos mas vendidos es:\n" >> top10.txt
+
 # Imprimir solo el top 10 de vehículos vendidos (nombre y cantidad)
+
 for ((i=0; i<10; i++))
 do
-    echo "Auto #$((i+1)): $(echo ${sorted_combined[i]} | cut -d':' -f1)"
+    echo -e "Auto #$((i+1)): $(echo ${sorted_combined[i]} | cut -d':' -f1) - Unidades vendidas: $(echo ${sorted_combined[i]} | cut -d':' -f2)" >> top10.txt
 done
+
+}
+
+
+
+imprimir_ventas_mes > Reporte_ventas_mensual.txt
+top10autos > top10.txt
